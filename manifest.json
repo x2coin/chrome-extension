@@ -7,10 +7,18 @@
     "128": "extension_icon.png"
   },
   "permissions": ["tabs", "scripting", "activeTab"],
-  "host_permissions": ["https://x.com/*"],
+  "host_permissions": [
+    "https://x.com/*",
+    "https://x2co.in/*",
+    "https://pump.fun/*"
+  ],
   "content_scripts": [
     {
-      "matches": ["https://x.com/*"],
+      "matches": [
+        "https://x2co.in/*",
+        "https://x.com/*",
+        "https://pump.fun/*"
+      ],
       "js": ["content.js"]
     }
   ]
