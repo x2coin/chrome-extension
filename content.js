@@ -1,5 +1,4 @@
-// const apiUrl = 'https://x2co.in/api';
-const apiUrl = 'http://localhost:8080';
+const apiUrl = 'https://x2co.in/api';
 const pumpfunPostUrl = 'https://pump.fun/create?x=';
 
 const urlParams = new URLSearchParams(window.location.search);
