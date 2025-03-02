@@ -173,6 +173,11 @@ async function startLoadingImageSuggestions() {
     spinner.innerHTML = getSpinner();
     container.appendChild(spinner);
 
+    const errorLogo = document.createElement('div');
+    errorLogo.className = 'error-container'
+    errorLogo.innerHTML = '<span class="error-label" id="error-logo"></span>'
+    container.appendChild(errorLogo);
+
     try {
         let postId = extractTweetId(xParam);
         const response = await fetch(apiUrl + '/suggestions/image', {
@@ -193,7 +198,7 @@ async function startLoadingImageSuggestions() {
         }
     } catch (error) {
         console.error('Error fetching logo suggestions:', error);
-        alert('Failed to fetch logo suggestions. Please try again.');
+        document.getElementById("error-logo").textContent = "Cant get x2co.in image suggestions, try again later";
     } finally {
         container.removeChild(spinner);
     }
@@ -238,11 +243,21 @@ async function startLoadingTextSuggestions() {
     nameSpinner.innerHTML = getSpinner();
     nameContainer.appendChild(nameSpinner);
 
+    const errorName = document.createElement('div');
+    errorName.className = 'error-container'
+    errorName.innerHTML = '<span class="error-label" id="error-name"></span>'
+    nameContainer.appendChild(errorName);
+
     const tickerContainer = document.getElementById("x2c-ticker-suggestions");
     tickerContainer.className = 'suggestions';
     const tickerSpinner = document.createElement('div');
     tickerSpinner.innerHTML = getSpinner();
     tickerContainer.appendChild(tickerSpinner);
+
+    const errorTicker = document.createElement('div');
+    errorTicker.className = 'error-container'
+    errorTicker.innerHTML = '<span class="error-label" id="error-ticker"></span>'
+    tickerContainer.appendChild(errorTicker);
 
     let postId = extractTweetId(xParam);
 
@@ -287,13 +302,27 @@ async function startLoadingTextSuggestions() {
             console.log("No suggestions found for this tweet.");
         }
     } catch (error) {
-        console.error('Error fetching suggestions:', error);
+        document.getElementById("error-name").textContent = "Cant get x2co.in AI name suggestions, try again later";
+        document.getElementById("error-ticker").textContent = "Cant get x2co.in AI ticker suggestions, try again later";
+        tickerSpinner.remove();
+        nameSpinner.remove()
     }
 }
 
 function initStyles() {
     let node = document.createElement('style');
     node.innerHTML = `
+        .error-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        
+        .error-label {
+            font-size:14px;
+            color: #df4d4a;
+        }
+
         .logo-suggestion-item {
             width: 70px;
             height: 70px;
